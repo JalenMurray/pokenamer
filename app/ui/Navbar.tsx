@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Navbar() {
@@ -12,7 +13,7 @@ export default function Navbar() {
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
             <div className="w-10">
-              <img
+              <Image
                 alt="Tailwind CSS Navbar component"
                 src="https://play.pokemonshowdown.com/sprites/xyani/grookey.gif"
                 className="w-4"

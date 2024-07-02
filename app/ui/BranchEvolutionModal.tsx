@@ -23,6 +23,7 @@ export default function BranchEvolutionModal({
               pokemon={pokemon}
               modalId={`evolution_modal_${cardId}`}
               onClick={() => onSelect(pokemon.id)}
+              key={pokemon.id}
             />
           ))}
         </div>

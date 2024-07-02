@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getSpriteURL } from '../pokemon_data/queries';
+import Image from 'next/image';
 
 export default function PokemonGif({ name }: { name: string }) {
   const [src, setSrc] = useState(getSpriteURL(name));
@@ -9,5 +10,7 @@ export default function PokemonGif({ name }: { name: string }) {
     setSrc(fallbackSrc);
   }
 
-  return <img src={src} alt={name.charAt(0).toUpperCase() + name.slice(1)} onError={handleError} />;
+  return (
+    <Image src={src} alt={name.charAt(0).toUpperCase() + name.slice(1)} onError={handleError} />
+  );
 }
