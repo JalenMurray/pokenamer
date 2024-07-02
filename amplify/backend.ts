@@ -6,6 +6,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
+
 const backend = defineBackend({
   auth,
   data,
@@ -21,3 +22,9 @@ const statement = new iam.PolicyStatement({
 });
 
 createInitCardsLambda.addToRolePolicy(statement);
+
+backend.addOutput({
+  custom: {
+    CARD_TABLE_NAME: backend.data.resources.tables['Card'].tableName,
+  },
+});

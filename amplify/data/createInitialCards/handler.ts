@@ -2,6 +2,7 @@ import { Context } from 'aws-lambda';
 import { DynamoDBDocumentClient, BatchWriteCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { v4 as uuid } from 'uuid';
+import config from '../../../amplify_outputs.json';
 
 interface Event {
   arguments: {
@@ -17,6 +18,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 export const handler = async (event: Event, context: Context) => {
   const { names, gameId, owner } = event.arguments;
   const startTime = Date.now();
+  const cardTableName = config.custom.CARD_TABLE_NAME;
 
   for await (const name of names) {
     const id = `${gameId}-${name}-${uuid()}`;
@@ -31,7 +33,7 @@ export const handler = async (event: Event, context: Context) => {
     };
     const command = new PutCommand({
       Item: item,
-      TableName: 'Card-u5f6wfp34zaslhsrhcl7xopy5i-NONE',
+      TableName: cardTableName,
     });
     await docClient.send(command);
   }
