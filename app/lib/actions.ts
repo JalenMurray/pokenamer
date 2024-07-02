@@ -23,7 +23,7 @@ export async function createGame(formData: FormData) {
   const { data: newGame, errors } = await cookiesClient.models.Game.create({
     name,
     themeIdentifier,
-  });
+  } as any);
 
   if (errors) {
     console.error(errors);
@@ -38,7 +38,7 @@ export async function createGame(formData: FormData) {
     names,
     gameId,
     owner,
-  });
+  } as any);
   console.log(resp);
 
   redirect(`/game/${gameId}`);
@@ -48,7 +48,7 @@ export async function updateCard(
   toUpdate: { id: string; name?: string; pokemon?: number },
   gameId: string
 ) {
-  const { data: updatedCard, errors } = await cookiesClient.models.Card.update(toUpdate);
+  const { data: updatedCard, errors } = await cookiesClient.models.Card.update(toUpdate as any);
   if (errors) {
     console.error(errors);
   }
