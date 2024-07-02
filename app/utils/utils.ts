@@ -1,5 +1,22 @@
-import { allPokemon, typeColors } from '@/data';
-import { Box, Game, Pokemon, PokemonType, ThemeTemplate } from '../lib/definitions';
+import {
+  ORASPokedex,
+  blackWhite2Pokedex,
+  blackWhitePokedex,
+  diamondPearlPokedex,
+  fireRedLeafGreenPokedex,
+  heartGoldSoulSilver,
+  legendsArceusPokedex,
+  letsGoPikachuEeveePokedex,
+  platinumPokedex,
+  rubySaphireEmeraldPokedex,
+  scarletVioletPokedex,
+  sunMoonPokedex,
+  swordShieldPokedex,
+  ultraSunMoonPokedex,
+  xYPokedex,
+} from '../pokemon_data/queries';
+import { Pokemon, PokemonType } from '../pokemon_data/definitions';
+import { allPokemon } from '../pokemon_data/pokemon_data';
 
 function filterTooLongWords<T>(names: T[]): T[] {
   const filtered = names.filter((name) => (name as string).length <= 10);
@@ -24,65 +41,113 @@ export function getRandomItems<T>(array: T[], n: number): T[] {
   return shuffledArray.slice(0, n);
 }
 
-// export function getGradientStyles(types: Array<PokemonType>) {
-//   if (types.length === 1) {
-//     return { backgroundImage: `linear-gradient(to right, black, ${typeColors[types[0]]}` };
-//   } else {
-//     return {
-//       backgroundImage: `linear-gradient(to right, black, transparent), linear-gradient(to right, ${
-//         typeColors[types[1]]
-//       }, ${typeColors[types[0]]})`,
-//       backgroundBlendMode: 'multiply',
-//     };
-//   }
-// }
+function getNewBase(game: string) {
+  switch (game) {
+    case 'firered':
+      return fireRedLeafGreenPokedex;
+    case 'leafgreen':
+      return fireRedLeafGreenPokedex;
+    case 'ruby':
+      return rubySaphireEmeraldPokedex;
+    case 'saphire':
+      return rubySaphireEmeraldPokedex;
+    case 'emerald':
+      return rubySaphireEmeraldPokedex;
+    case 'diamond':
+      return diamondPearlPokedex;
+    case 'pearl':
+      return diamondPearlPokedex;
+    case 'platinum':
+      return platinumPokedex;
+    case 'heartgold':
+      return heartGoldSoulSilver;
+    case 'soulsilver':
+      return heartGoldSoulSilver;
+    case 'black':
+      return blackWhitePokedex;
+    case 'white':
+      return blackWhitePokedex;
+    case 'black2':
+      return blackWhite2Pokedex;
+    case 'white2':
+      return blackWhite2Pokedex;
+    case 'x':
+      return xYPokedex;
+    case 'y':
+      return xYPokedex;
+    case 'omegaruby':
+      return ORASPokedex;
+    case 'alphasaphire':
+      return ORASPokedex;
+    case 'sun':
+      return sunMoonPokedex;
+    case 'moon':
+      return sunMoonPokedex;
+    case 'ultrasun':
+      return ultraSunMoonPokedex;
+    case 'ultramoon':
+      return ultraSunMoonPokedex;
+    case 'letsgopikachu':
+      return letsGoPikachuEeveePokedex;
+    case 'letsgoeevee':
+      return letsGoPikachuEeveePokedex;
+    case 'sword':
+      return swordShieldPokedex;
+    case 'shield':
+      return swordShieldPokedex;
+    case 'legendsarceus':
+      return legendsArceusPokedex;
+    case 'scarlet':
+      return scarletVioletPokedex;
+    case 'violet':
+      return scarletVioletPokedex;
+  }
+  return Object.values(allPokemon) as Pokemon[];
+}
 
-// export function createBaseBoxFromTheme(theme: Theme): Box {
-//   const box: Box = {};
-//   theme.names.forEach(
-//     (name, i) => (box[name] = { id: i, name: name, pokemon: undefined, jsx: undefined })
-//   );
-//   return box;
-// }
+export function searchPokemon(tokens: string[]) {
+  // Check if there is a change in the base
+  let base: Pokemon[] = Object.values(allPokemon);
+  const gameSearched = tokens.filter((token) => token.substring(0, 5) === 'game:').length !== 0;
+  if (gameSearched) {
+    const firstGameSearched = tokens
+      .filter((token) => token.substring(0, 5) === 'game:')[0]
+      .substring(5);
+    base = getNewBase(firstGameSearched);
+  }
 
-// function getCurrentIndexInChain(chain: Array<number | number[]>, id: number) {
-//   for (let i = 0; i < chain.length; i++) {
-//     const curr = chain[i];
-//     if (Array.isArray(curr)) {
-//       if (curr.filter((found_id) => found_id === id).length == 1) {
-//         return i;
-//       }
-//     } else {
-//       if (curr === id) {
-//         return i;
-//       }
-//     }
-//   }
+  // Check if there is a type filter
+  const typeSearched = tokens.filter((token) => token.substring(0, 5) === 'type:').length !== 0;
+  if (typeSearched) {
+    base = base.filter((pokemon) => {
+      // Iterate through the types and check if the pokemon is of this type
+      const typesSearched = tokens.filter((token) => token.substring(0, 5) === 'type:');
+      let result = false;
+      typesSearched.forEach((token) => {
+        if (pokemon.types.includes(token.substring(5) as PokemonType)) {
+          result = true;
+        }
+      });
+      return result;
+    });
+  }
 
-//   return undefined;
-// }
-
-// export function getEvolvedPokemon(pokemon: Pokemon): Pokemon {
-//   const evoChain = pokemon.evolution_chain;
-
-//   // Check if it is the final evo
-//   if (pokemon.id === evoChain[evoChain.length - 1]) {
-//     return pokemon;
-//   }
-
-//   const currIndex = getCurrentIndexInChain(evoChain, pokemon.id);
-
-//   console.log(currIndex);
-
-//   if (currIndex == undefined) {
-//     return pokemon;
-//   }
-
-//   const nextPokemon = evoChain[currIndex + 1];
-
-//   if (Array.isArray(nextPokemon)) {
-//     return allPokemon[nextPokemon[0]];
-//   }
-
-//   return allPokemon[nextPokemon];
-// }
+  // Filter on Regular Text
+  const searchText = tokens.filter((token) => !token.includes(':') && token !== '');
+  if (searchText.length !== 0) {
+    return base.filter((pokemon) => {
+      let result = false;
+      searchText.forEach((text) => {
+        if (pokemon.name.includes(text)) {
+          result = true;
+        }
+        if (pokemon.id === parseFloat(text)) {
+          result = true;
+        }
+      });
+      return result;
+    });
+  } else {
+    return base;
+  }
+}

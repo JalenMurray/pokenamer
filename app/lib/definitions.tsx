@@ -1,59 +1,17 @@
 import { Schema } from '@/amplify/data/resource';
 
-export type Name = Schema['Name']['type'];
-export type ThemeTemplate = Schema['ThemeTemplate']['type'];
-export type Category = Schema['Category']['type'];
+export type Card = Schema['Card']['type'];
+export type Game = Schema['Game']['type'];
 
-export type PokemonType =
-  | 'normal'
-  | 'fire'
-  | 'water'
-  | 'electric'
-  | 'grass'
-  | 'ice'
-  | 'fighting'
-  | 'poison'
-  | 'ground'
-  | 'flying'
-  | 'psychic'
-  | 'bug'
-  | 'rock'
-  | 'ghost'
-  | 'dragon'
-  | 'dark'
-  | 'steel'
-  | 'fairy';
-
-export type Pokemon = {
-  id: number;
+export type ClientCard = {
+  id: string;
   name: string;
-  types: Array<PokemonType>;
-  evolution_chain: Array<number | Array<number>>;
+  pokemon?: number;
 };
 
-export type AllPokemon = {
-  [id: number]: Pokemon;
-};
-
-export type Card = {
-  id: number;
+export type ClientGame = {
+  id: string;
   name: string;
-  pokemon: Pokemon | undefined;
-  jsx: JSX.Element | undefined;
-};
-
-export type GameName = {
-  name: string;
-  pokemon: Pokemon | undefined;
-};
-
-export type Box = {
-  [name: string]: Card;
-};
-
-export type Game = {
-  id: number;
-  theme: string;
-  name: string;
-  box: Box;
+  themeIdentifier: string;
+  cards: ClientCard[];
 };

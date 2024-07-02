@@ -1,16 +1,20 @@
+import Link from 'next/link';
+
 export default function Navbar() {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">PokeNamer</a>
+        <Link href={'/themes'} className="btn btn-ghost text-xl">
+          PokeNamer
+        </Link>
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
+            <div className="w-10">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="https://play.pokemonshowdown.com/sprites/xyani/charmander.gif"
+                src="https://play.pokemonshowdown.com/sprites/xyani/grookey.gif"
                 className="w-4"
               />
             </div>

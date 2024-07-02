@@ -1,4 +1,4 @@
-import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { type ClientSchema, a, defineData, defineFunction } from '@aws-amplify/backend';
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -6,30 +6,37 @@ adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any unauthenticated user can "create", "read", "update", 
 and "delete" any "Todo" records.
 =========================================================================*/
+
+export const createInitialCardsHandler = defineFunction({
+  entry: './createInitialCards/handler.ts',
+});
+
 const schema = a.schema({
-  Name: a
+  Card: a
     .model({
       name: a.string().required(),
-      themeId: a.id().required(),
-      theme: a.belongsTo('ThemeTemplate', 'themeId'),
+      pokemon: a.integer(),
+      gameId: a.id().required(),
+      game: a.belongsTo('Game', 'gameId'),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
-  ThemeTemplate: a
+    .authorization((allow) => [allow.owner()]),
+  Game: a
     .model({
       name: a.string().required(),
-      names: a.hasMany('Name', 'themeId'),
-      identifier: a.string().required(),
-      categoryId: a.id().required(),
-      category: a.belongsTo('Category', 'categoryId'),
+      themeIdentifier: a.string().required(),
+      cards: a.hasMany('Card', 'gameId'),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
-  Category: a
-    .model({
-      name: a.string().required(),
-      language: a.string().required(),
-      themes: a.hasMany('ThemeTemplate', 'categoryId'),
+    .authorization((allow) => [allow.owner()]),
+  createInitialCards: a
+    .mutation()
+    .arguments({
+      names: a.string().array(),
+      gameId: a.string(),
+      owner: a.string(),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
+    .returns(a.string())
+    .authorization((allow) => [allow.authenticated()])
+    .handler(a.handler.function(createInitialCardsHandler)),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -37,7 +44,9 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'apiKey',
-    apiKeyAuthorizationMode: { expiresInDays: 30 },
+    defaultAuthorizationMode: 'userPool',
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
   },
 });

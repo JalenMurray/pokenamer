@@ -26,7 +26,7 @@ function CustomAuthenticator() {
       console.log(session);
     }
     if (user) {
-      redirect('/');
+      redirect('/themes');
     }
   }, [user]);
 
