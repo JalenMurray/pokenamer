@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import '@aws-amplify/ui-react/styles.css';
-import ConfigureAmplifyClientSide from './utils/ConfigureAmplify';
+// import ConfigureAmplifyClientSide from './utils/ConfigureAmplify';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const inter = Inter({ subsets: ['latin'] });
 

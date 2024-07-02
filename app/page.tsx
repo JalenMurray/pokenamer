@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import { categories, themes } from '../data';
-import { useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Home() {

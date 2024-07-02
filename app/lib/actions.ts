@@ -6,7 +6,6 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Game, Card } from './definitions';
 import { themes } from '../template_data/template_data';
-import { v4 } from 'uuid';
 
 const GameFormSchema = z.object({
   id: z.string(),
