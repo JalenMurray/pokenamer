@@ -4,6 +4,7 @@ import ModalPokemonCard from './ModalPokemonCard';
 import { searchPokemon } from '../utils/utils';
 import { useDebouncedCallback } from 'use-debounce';
 import { allPokemon } from '../pokemon_data/pokemon_data';
+import SelectPokemonSearchHelpModal from './SelectPokemonSearchHelpModal';
 
 export default function SelectPokemonModal({
   onSelect,
@@ -112,6 +113,11 @@ export default function SelectPokemonModal({
     onSelect(pokemonId);
   }
 
+  function handleHelpClick() {
+    const modal = document.getElementById('select_pokemon_help_modal') as HTMLDialogElement;
+    modal.showModal();
+  }
+
   return (
     <>
       <dialog id={`select_pokemon_modal`} className="modal">
@@ -123,7 +129,7 @@ export default function SelectPokemonModal({
             <input
               type="text"
               className="grow"
-              placeholder="Search"
+              placeholder="Search Pokemon"
               onChange={(e) => filter(e.target.value.toLowerCase())}
             />
             <svg
@@ -138,6 +144,9 @@ export default function SelectPokemonModal({
                 clipRule="evenodd"
               />
             </svg>
+            <button className="btn btn-warning btn-sm" onClick={handleHelpClick}>
+              Search Tips
+            </button>
           </label>
           <div className="grid gap-4 grid-cols-5">
             {pagePokemon.map((pokemon) => {
@@ -172,6 +181,7 @@ export default function SelectPokemonModal({
           <button>close</button>
         </form>
       </dialog>
+      <SelectPokemonSearchHelpModal />
     </>
   );
 }

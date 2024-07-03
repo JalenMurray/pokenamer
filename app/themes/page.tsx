@@ -7,7 +7,6 @@ export default function Page() {
 
   return (
     <>
-      <Navbar />
       <main className="flex min-h-screen w-full flex-col gap-12 p-12 xl:p-24">
         <h1 className="text-7xl">Categories</h1>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 xl:gap-8">

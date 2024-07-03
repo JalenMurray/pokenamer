@@ -14,7 +14,6 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <Navbar />
       <main className="flex min-h-screen w-full flex-col gap-12 p-24">
         <div className="flex gap-8">
           <h1 className="text-4xl">{theme.name}</h1>

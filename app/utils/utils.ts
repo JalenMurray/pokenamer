@@ -17,6 +17,7 @@ import {
 } from '../pokemon_data/queries';
 import { Pokemon, PokemonType } from '../pokemon_data/definitions';
 import { allPokemon } from '../pokemon_data/pokemon_data';
+import { ClientCard } from '../lib/definitions';
 
 function filterTooLongWords<T>(names: T[]): T[] {
   const filtered = names.filter((name) => (name as string).length <= 10);
@@ -150,4 +151,23 @@ export function searchPokemon(tokens: string[]) {
   } else {
     return base;
   }
+}
+
+export function getPreviewPokemon(cards: ClientCard[]): ClientCard[] {
+  // Filter names that are too long
+  const filtered = cards.filter((card) => card.pokemon);
+
+  if (filtered.length < 3) {
+    return filtered;
+  }
+
+  // Shuffle Names
+  const shuffledArray = [...filtered];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+
+  // Return first 3
+  return shuffledArray.slice(0, 3);
 }

@@ -1,19 +1,25 @@
+import { useEffect, useState } from 'react';
 import { ClientCard } from '../lib/definitions';
 import { getPokemon, getSpriteURL, getTypeGradient } from '../pokemon_data/queries';
 import CardModal from './CardModal';
 import PokemonGif from './PokemonGif';
+import { Pokemon } from '../pokemon_data/definitions';
+import { useMutation } from '@tanstack/react-query';
 
 export default function GamePokemonCard({ card, gameId }: { card: ClientCard; gameId: string }) {
   if (!card.pokemon) {
     return;
   }
+  const [pokemon, setPokemon] = useState<Pokemon>(getPokemon(card.pokemon));
+
+  useEffect(() => {
+    setPokemon(getPokemon(card.pokemon as number));
+  }, [card]);
 
   function handleClick() {
     const cardModal = document.getElementById(`card_modal_${card.id}`) as HTMLDialogElement;
     cardModal.showModal();
   }
-
-  const pokemon = getPokemon(card.pokemon);
 
   return (
     <>
@@ -29,12 +35,12 @@ export default function GamePokemonCard({ card, gameId }: { card: ClientCard; ga
               {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
             </h1>
           </div>
-          <div className="w-32 h-32 flex items-center justify-center">
+          <div className="w-40 h-40 flex items-center justify-center">
             <PokemonGif name={pokemon.name} />
           </div>
         </div>
       </div>
-      <CardModal card={card} gameId={gameId} />
+      <CardModal card={card} />
     </>
   );
 }
