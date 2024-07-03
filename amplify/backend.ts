@@ -1,6 +1,7 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { auth } from './auth/resource';
-import { data, createInitialCardsHandler } from './data/resource';
+import { data } from './data/resource';
+import { createInitialCards } from './functions/createInitialCards/resource';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
 /**
@@ -10,10 +11,10 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 const backend = defineBackend({
   auth,
   data,
-  createInitialCardsHandler,
+  createInitialCards,
 });
 
-const createInitCardsLambda = backend.createInitialCardsHandler.resources.lambda;
+const createInitCardsLambda = backend.createInitialCards.resources.lambda;
 
 const statement = new iam.PolicyStatement({
   sid: 'AllowBatchWrite',
@@ -23,8 +24,23 @@ const statement = new iam.PolicyStatement({
 
 createInitCardsLambda.addToRolePolicy(statement);
 
-backend.addOutput({
-  custom: {
-    CARD_TABLE_NAME: backend.data.resources.tables['Card'].tableName,
-  },
-});
+// // Create parameters for MyParameterStore
+// const parameterStoreDynamoDBGeneratedKey = `/amplify/userProfileTableName-${process.env.AWS_BRANCH}`;
+
+// const myParameterStore = new MyParameterStore(
+//   backend.createStack('myParameterStore'),
+//   'myParameterStore',
+//   {
+//     parameters: [
+//       {
+//         name: parameterStoreDynamoDBGeneratedKey,
+//         value: backend.data.resources.tables['Card'].tableName,
+//       },
+//     ],
+//   }
+// );
+
+// createInitCardsLambda.createInitCardsLambda.addEnvironment(
+//   'SSM_CARD_TABLE_NAME_KEY',
+//   parameterStoreDynamoDBGeneratedKey
+// );

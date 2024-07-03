@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData, defineFunction } from '@aws-amplify/backend';
+import { createInitialCards } from '../functions/createInitialCards/resource';
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -6,10 +7,6 @@ adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any unauthenticated user can "create", "read", "update", 
 and "delete" any "Todo" records.
 =========================================================================*/
-
-export const createInitialCardsHandler = defineFunction({
-  entry: './createInitialCards/handler.ts',
-});
 
 const schema = a.schema({
   Card: a
@@ -36,7 +33,7 @@ const schema = a.schema({
     })
     .returns(a.string())
     .authorization((allow) => [allow.authenticated()])
-    .handler(a.handler.function(createInitialCardsHandler)),
+    .handler(a.handler.function(createInitialCards)),
 });
 
 export type Schema = ClientSchema<typeof schema>;
