@@ -41,7 +41,7 @@ export default function SelectPokemonSearchHelpModal() {
             <i className="ml-2">game:emerald type:water type:fire</i>
           </p>
           <p>
-            Every Water or Ghost Type in X with &apos;ba&apos; in it's name:{' '}
+            Every Water or Ghost Type in X with &apos;ba&apos; in it&apos;s name:{' '}
             <i className="ml-2">game:x type:water type:ghost ba</i>
           </p>
         </div>

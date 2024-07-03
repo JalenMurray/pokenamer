@@ -18,13 +18,9 @@ export default function GameCardTable({ game }: { game: ClientGame }) {
     queryFn: async () => fetchGameCards(game.id),
   });
 
-  if (!isSuccess || !cards) {
-    return <CardTableSkeleton />;
-  }
-
   const [selectedCard, setSelectedCard] = useState<string | undefined>(undefined);
   const [searchText, setSearchText] = useState<string>('');
-  const [filteredCards, setFilteredCards] = useState<ClientCard[]>(cards);
+  const [filteredCards, setFilteredCards] = useState<ClientCard[]>([]);
 
   function filterNames(card: ClientCard) {
     if (card.name.toLowerCase().includes(searchText)) {
@@ -55,8 +51,10 @@ export default function GameCardTable({ game }: { game: ClientGame }) {
   }
 
   useEffect(() => {
-    const newFiltered = getFilteredCards(searchText, cards);
-    setFilteredCards(newFiltered);
+    if (cards) {
+      const newFiltered = getFilteredCards(searchText, cards);
+      setFilteredCards(newFiltered);
+    }
   }, [searchText, cards]);
 
   function handleNameCardClicked(cardId: string) {
@@ -84,6 +82,9 @@ export default function GameCardTable({ game }: { game: ClientGame }) {
   const updateMutation = useMutation({
     mutationFn: async (pokemonId: number) => {
       const updatedCard = (await handlePokemonSelected(pokemonId)) as ClientCard;
+      if (!cards) {
+        return [];
+      }
       const updatedCards = getUpdatedCards(cards, updatedCard);
       return updatedCards;
     },

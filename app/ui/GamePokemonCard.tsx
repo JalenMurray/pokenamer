@@ -7,10 +7,7 @@ import { Pokemon } from '../pokemon_data/definitions';
 import { useMutation } from '@tanstack/react-query';
 
 export default function GamePokemonCard({ card, gameId }: { card: ClientCard; gameId: string }) {
-  if (!card.pokemon) {
-    return;
-  }
-  const [pokemon, setPokemon] = useState<Pokemon>(getPokemon(card.pokemon));
+  const [pokemon, setPokemon] = useState<Pokemon>(getPokemon(card.pokemon as number));
 
   useEffect(() => {
     setPokemon(getPokemon(card.pokemon as number));
