@@ -12,7 +12,9 @@ export default function ThemePreview({ theme, bgColor }: { theme: Theme; bgColor
       <hr />
       <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-2 min-[2200px]:grid-cols-4 gap-2 text-center justify-center items-center my-2">
         {getPreviewNames(theme.identifier).map((name, i) => (
-          <p key={i}>{name}</p>
+          <p key={i} className="text-sm md:text-base">
+            {name}
+          </p>
         ))}
       </div>
     </Link>

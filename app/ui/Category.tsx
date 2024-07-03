@@ -16,7 +16,7 @@ export default async function Category({ category }: { category: CategoryType })
           border: `${category.bgColor} 2`,
         }}
       >
-        <h1 className="p-4 text-6xl bg-base-100 border-2 border-neutral-content rounded-xl">
+        <h1 className="p-4 text-3xl lg:text-6xl bg-base-100 border-2 border-neutral-content rounded-xl">
           {category.name}
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">

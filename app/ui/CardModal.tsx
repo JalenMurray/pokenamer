@@ -103,14 +103,14 @@ export default function CardModal({ card }: { card: ClientCard }) {
               </div>
               <div className="flex gap-4">
                 <button
-                  className="btn btn-warning text-white"
+                  className="btn btn-warning text-white w-[40%]"
                   disabled={getPrevEvo(pokemon) === pokemon}
                   onClick={handleEvolutionClick}
                 >
                   De-evolve
                 </button>
                 <button
-                  className="btn btn-success text-white"
+                  className="btn btn-success text-white w-[40%]"
                   disabled={getNextEvo(pokemon) === pokemon}
                   onClick={handleEvolutionClick}
                 >
@@ -118,7 +118,7 @@ export default function CardModal({ card }: { card: ClientCard }) {
                 </button>
               </div>
               <div>
-                <button className="btn btn-error text-white" onClick={unassignPokemon}>
+                <button className="btn btn-error text-white w-[90%]" onClick={unassignPokemon}>
                   Unassign Pokemon
                 </button>
               </div>

@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <main className="flex min-h-screen w-full flex-col gap-12 p-24">
+      <main className="flex min-h-screen w-full flex-col gap-12 p-8 lg:p-24">
         <div className="flex flex-col gap-2">
           <h1 className="text-5xl">{game.name}</h1>
           <h1 className="text-2xl">{getTheme(game.themeIdentifier).name}</h1>

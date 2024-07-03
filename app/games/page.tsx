@@ -13,7 +13,7 @@ export default async function Page() {
   const sortedGames = games.sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <main className="flex min-h-screen w-full flex-col gap-12 p-24">
+    <main className="flex min-h-screen w-full flex-col gap-12 p-4 lg:p-24">
       <div className="flex flex-col gap-2">
         <div className="flex gap-8">
           <h1 className="text-5xl">Games</h1>

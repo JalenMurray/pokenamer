@@ -7,8 +7,8 @@ export default function Page() {
 
   return (
     <>
-      <main className="flex min-h-screen w-full flex-col gap-12 p-12 xl:p-24">
-        <h1 className="text-7xl">Categories</h1>
+      <main className="flex min-h-screen w-full flex-col gap-12 p-4 xl:p-24 justify-center items-center">
+        <h1 className="text-4xl lg:text-7xl">Categories</h1>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 xl:gap-8">
           {sortedCategories?.map((category) => {
             return <Category category={category} key={category.name} />;

@@ -145,7 +145,7 @@ export default function GameCardTable({ game }: { game: ClientGame }) {
           />
         </svg>
       </label>
-      <div className="grid gap-4 grid-cols-6">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
         {filteredCards.map((card) => {
           if (card.pokemon) {
             return <GamePokemonCard card={card} key={card.id} gameId={game.id} />;
