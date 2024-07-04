@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PokeNamer
 
-## Getting Started
+PokeNamer is a web application designed to assist players in nicknaming Pokémon during gameplay, particularly useful in Nuzlocke challenges where nicknaming is essential. The app provides themed name lists to simplify the naming process and helps players track assigned names to their Pokémon.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Theme-based Naming: Choose from 89 different themes to find creative names for your Pokémon.
+- Game Instance Creation: Create a game instance to select a theme and manage assigned names to Pokémon.
+- Name Assignment and Tracking: Assign names to Pokémon and track their evolution and status within the game.
+- Built with AWS Amplify Gen2: Leveraging modern cloud capabilities for scalability and reliability.
+- Powered by Next.js, TypeScript, and React: Utilizes robust frameworks and technologies for a seamless user experience.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contributing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Contributions are welcome! If you have ideas for new features, themes, or improvements, please open an issue or submit a pull request.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## License
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License.
