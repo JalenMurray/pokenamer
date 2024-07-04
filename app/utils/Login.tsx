@@ -1,7 +1,7 @@
 'use client';
 
 import { Authenticator, View, useAuthenticator, Image, useTheme } from '@aws-amplify/ui-react';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { fetchAuthSession } from 'aws-amplify/auth';
 
@@ -26,7 +26,8 @@ function CustomAuthenticator() {
       console.log(session);
     }
     if (user) {
-      redirect('/themes');
+      const router = useRouter();
+      router.back();
     }
   }, [user]);
 
