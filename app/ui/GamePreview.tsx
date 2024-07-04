@@ -37,7 +37,6 @@ export default function GamePreview({ game }: { game: ClientGame }) {
 
   useEffect(() => {
     // Only show 1 on small screens and 2 on medium screens
-    console.log(window.innerWidth);
     let filteredPreviewPokemon = getPreviewPokemon(game.cards);
     if (window.innerWidth <= 1024) {
       filteredPreviewPokemon = filteredPreviewPokemon.slice(0, 2);
